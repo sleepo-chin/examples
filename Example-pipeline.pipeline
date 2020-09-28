@@ -1,0 +1,296 @@
+{
+  "doc_type": "pipeline",
+  "version": "3.0",
+  "json_schema": "http://api.dataplatform.ibm.com/schemas/common-pipeline/pipeline-flow/pipeline-flow-v3-schema.json",
+  "id": "326e12c1-ccec-479e-b30e-e14b14a07285",
+  "primary_pipeline": "b33a0b01-9a73-47c7-899a-9dd266067b4c",
+  "pipelines": [
+    {
+      "id": "b33a0b01-9a73-47c7-899a-9dd266067b4c",
+      "nodes": [
+        {
+          "id": "9ac5aeb9-ccaf-4d20-983a-75c458f4cd29",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "pipelines/hello_world/load_data.ipynb",
+            "runtime_image": "amancevice/pandas:1.1.1",
+            "env_vars": [
+              "DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
+            ],
+            "include_subdirectories": false,
+            "outputs": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
+            ],
+            "invalidNodeError": null,
+            "ui_data": {
+              "label": "load_data.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 198,
+              "y_pos": 175,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "label": "Input Port"
+                }
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "ce9080cf-36bb-4b29-b104-efc3efac37dd",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "pipelines/hello_world/Part 1 - Data Cleaning.ipynb",
+            "runtime_image": "amancevice/pandas:1.1.1",
+            "env_vars": [],
+            "include_subdirectories": false,
+            "invalidNodeError": null,
+            "outputs": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
+            ],
+            "ui_data": {
+              "label": "Part 1 - Data Cleaning.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 471,
+              "y_pos": 176,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "36badafe-5c08-4c19-a651-a73f364b8d6e",
+                  "node_id_ref": "9ac5aeb9-ccaf-4d20-983a-75c458f4cd29",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "9650a5b0-3ed9-414d-8e4b-ec6bbd374b1a",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "pipelines/hello_world/Part 3 - Time Series Forecasting.ipynb",
+            "runtime_image": "amancevice/pandas:1.1.1",
+            "env_vars": [],
+            "include_subdirectories": false,
+            "invalidNodeError": null,
+            "ui_data": {
+              "label": "Part 3 - Time Series Forecasting.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 876,
+              "y_pos": 274,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "76f3bdae-9daa-49c3-bfa4-9bee85532501",
+                  "node_id_ref": "ce9080cf-36bb-4b29-b104-efc3efac37dd",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "6ad41008-71f4-4a45-b1e7-cd8daf0f1e5a",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "pipelines/hello_world/Part 2 - Data Analysis.ipynb",
+            "runtime_image": "amancevice/pandas:1.1.1",
+            "env_vars": [],
+            "include_subdirectories": false,
+            "invalidNodeError": null,
+            "ui_data": {
+              "label": "Part 2 - Data Analysis.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 895,
+              "y_pos": 152,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "f5bbe6e0-a49b-4ad0-8725-d11a16cb7ba5",
+                  "node_id_ref": "ce9080cf-36bb-4b29-b104-efc3efac37dd",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "app_data": {
+        "ui_data": {
+          "comments": [
+            {
+              "id": "55c957d4-d652-4eaf-9696-17510f52ce91",
+              "x_pos": 440,
+              "y_pos": 51,
+              "width": 175,
+              "height": 42,
+              "class_name": "d3-comment-rect",
+              "content": "Clean the dataset",
+              "associated_id_refs": [
+                {
+                  "node_ref": "ce9080cf-36bb-4b29-b104-efc3efac37dd"
+                }
+              ]
+            },
+            {
+              "id": "9c3f82ea-eb5e-4e13-8276-779d812b7192",
+              "x_pos": 100,
+              "y_pos": 46,
+              "width": 175,
+              "height": 52,
+              "class_name": "d3-comment-rect",
+              "content": "Download the JFK Weather\ndataset archive and extract it",
+              "associated_id_refs": [
+                {
+                  "node_ref": "9ac5aeb9-ccaf-4d20-983a-75c458f4cd29"
+                }
+              ]
+            },
+            {
+              "id": "f4e8f82a-04a1-4c50-b6de-8b2db35e5625",
+              "x_pos": 796,
+              "y_pos": 38,
+              "width": 175,
+              "height": 42,
+              "class_name": "d3-comment-rect",
+              "content": "Analyze the dataset",
+              "associated_id_refs": [
+                {
+                  "node_ref": "6ad41008-71f4-4a45-b1e7-cd8daf0f1e5a"
+                }
+              ]
+            },
+            {
+              "id": "c7ee82e0-b02e-4507-bca0-829d63348999",
+              "x_pos": 777,
+              "y_pos": 364,
+              "width": 175,
+              "height": 52,
+              "class_name": "d3-comment-rect",
+              "content": "Explore approaches to predicting future temperatures",
+              "associated_id_refs": [
+                {
+                  "node_ref": "9650a5b0-3ed9-414d-8e4b-ec6bbd374b1a"
+                }
+              ]
+            }
+          ]
+        },
+        "version": 3
+      },
+      "runtime_ref": ""
+    }
+  ],
+  "schemas": []
+}
